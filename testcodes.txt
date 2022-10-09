@@ -1,0 +1,1358 @@
+PHP Coding Challenge
+
+1.
+	$x = true and false;
+	var_dump($x);
+
+	output: false
+
+
+2.
+	$x = 5;
+	echo $x;
+	echo "<br />";
+	echo $x+++$x++;
+	echo "<br />";
+	echo $x;
+	echo "<br />";
+	echo $x---$x--;
+	echo "<br />";
+	echo $x;
+
+	output:
+	5
+	11
+	7
+	1
+	5
+
+
+3.
+	$a = '1';
+	$b = &$a;
+	$b = "2$b";
+
+	output
+	21
+
+
+4.
+	var_dump(0123 == 123);
+	var_dump('0123' == 123);
+	var_dump('0123' === 123);
+
+	output
+	bool(false)
+	bool(true)
+	bool(false)
+
+
+5.
+	$referenceTable = array();
+	$referenceTable['val1'] = array(1, 2);
+	$referenceTable['val2'] = 3;
+	$referenceTable['val3'] = array(4, 5);
+
+	$testArray = array();
+
+	$testArray = array_merge($testArray, $referenceTable['val1']);
+	var_dump($testArray);
+	
+	$testArray = array_merge($testArray, $referenceTable['val2']);
+	var_dump($testArray);
+	
+	$testArray = array_merge($testArray, $referenceTable['val3']);
+	var_dump($testArray);
+	
+	output
+	array(2) { [0]=> int(1) [1]=> int(2) }
+	NULL
+	NULL
+	
+	Warning: array_merge(): Argument #2 is not an array
+	Warning: array_merge(): Argument #1 is not an array
+	
+	$testArray = array_merge($testArray, (array)$referenceTable['val1']);
+	var_dump($testArray);
+	
+	$testArray = array_merge($testArray, (array)$referenceTable['val2']);
+	var_dump($testArray);
+	
+	$testArray = array_merge($testArray, (array)$referenceTable['val3']);
+	var_dump($testArray);
+	
+	array(2) { [0]=> int(1) [1]=> int(2) } 
+	array(3) { [0]=> int(1) [1]=> int(2) [2]=> int(3) } 
+	array(5) { [0]=> int(1) [1]=> int(2) [2]=> int(3) [3]=> int(4) [4]=> int(5) }
+
+6.
+	$x = 3 + "15%" + "$25"
+
+	output
+	18
+
+7.
+	$text = 'John ';
+	$text[10] = 'Doe';
+
+	output
+	11
+
+8.
+	var_dump((int)(PHP_INT_MAX + 1))
+
+	output
+	double(9.2233720368548E+18)
+
+9.
+	$a = "PHP";
+	$a = $a + 1;
+	echo $a;
+
+	output
+	The number 1.
+
+	Note, in PHP 7.2 this throws a warning that a non-numeric value is encountered on the line and does not do the conversion to the int, so it echoes PHP instead.
+
+10.
+	array(
+		'0' => 'z1',
+		'1' => 'Z10',
+		'2' => 'z12',
+		'3' => 'Z2',
+		'4' => 'z3',
+	)
+
+	After sorting, above array should become:
+	array(
+		'0' => 'z1',
+		'3' => 'Z2',
+		'4' => 'z3',
+		'1' => 'Z10',
+		'2' => 'z12',
+	)
+
+
+	The trick to solving this problem is to use three special flags with the standard asort() library function:
+
+	asort($arr, SORT_STRING|SORT_FLAG_CASE|SORT_NATURAL)
+
+11.
+	PEAR (PHP Extension and Application Repository) is a framework and repository for reusable PHP components. PEAR is a code repository containing all kinds of php code snippets and libraries.
+
+	PEAR also offers a command-line interface that can be used to automatically install packages.
+
+
+12.
+	header() is used to redirect from one page to another: header("Location: index.php");
+	header() is used to send an HTTP status code: header("HTTP/1.0 this Not Found");
+	header() is used to send a raw HTTP header: header('Content-Type: application/json');
+
+13.
+	$x = NULL;
+
+	if ('0xFF' == 255) {
+		$x = (int)'0xFF';
+	}
+
+	output
+	Neither NULL nor 255
+
+14.
+	Check odd or even without using for loop
+
+	output
+	$arr=array("0"=>"Even","1"=>"Odd");
+	$check=13;
+	echo "Your number is: ".$arr[$check%2];
+
+
+15.
+	$str1 = 'yabadabadoo';
+	$str2 = 'yaba';
+	if (strpos($str1,$str2)) {
+		echo "\"" . $str1 . "\" contains \"" . $str2 . "\"";
+	} else {
+		echo "\"" . $str1 . "\" does not contain \"" . $str2 . "\"";
+	}
+
+	output
+	"yabadabadoo" does not contain "yaba"
+
+	correct code
+	$str1 = 'yabadabadoo';
+	$str2 = 'yaba';
+	if (strpos($str1,$str2) !== false) {
+		echo "\"" . $str1 . "\" contains \"" . $str2 . "\"";
+	} else {
+		echo "\"" . $str1 . "\" does not contain \"" . $str2 . "\"";
+	}
+
+
+16.
+	function primeCheck($number){
+		if ($number == 1)
+			return 0;
+		
+		for ($i = 2; $i <= $number/2; $i++){
+			if ($number % $i == 0)
+				return 0;
+		}
+		return 1;
+	}
+
+	$number = 31;
+	$flag = primeCheck($number);
+	if ($flag == 1)
+		echo "Prime";
+	else
+		echo "Not Prime"
+
+17.
+	Let the dates are 25-09-2020 and 31-01-2021
+
+	function dateDiffInDays($date1, $date2)
+	{
+		$diff = strtotime($date2) - strtotime($date1);
+		return abs(round($diff / 86400));
+	}
+	$date1 = "25-09-2020";
+	$date2 = "31-01-2021";
+	$dateDiff = dateDiffInDays($date1, $date2);
+	printf("Difference between two dates: ". $dateDiff . " Days ");
+
+
+18.
+	The program in PHP to find the occurrence of a word in a string is as follows:
+	$s1 = "interviewmocks.com is a interview prep site";
+	$s2 = "interview";
+	$res = substr_count($s1, $s2);
+	echo($res);
+
+
+19.
+	File upload
+	The program to upload a file in PHP is as follows:
+
+	$target_dir = "uploads/";
+	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+	$uploadOk = 1;
+	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	if(isset($_POST["submit"])) {
+	  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+	  if($check !== false) {
+		echo "File is an image - " . $check["mime"] . ".";
+		$uploadOk = 1;
+	  } else {
+		echo "File is not an image.";
+		$uploadOk = 0;
+	  }
+	}
+
+
+20.
+	function Palindrome($number){ 
+		$temp = $number;
+		$new = 0;
+		while (floor($temp)) { 
+			$d = $temp % 10;
+			$new = $new * 10 + $d;
+			$temp = $temp/10;
+		}
+
+		if ($new == $number){
+			return 1;
+		} else {
+			return 0;
+		}
+	} 
+
+	$original = 257752;
+
+	if (Palindrome($original)){
+		echo "Palindrome";
+	} else {
+		echo "Not a Palindrome";
+	}
+
+
+21.
+	function Factorial($number){
+		if($number <= 1){
+			return 1;
+		} else {
+			return $number * Factorial($number - 1);
+		}
+	}
+
+	$number = 20;
+	$fact = Factorial($number);
+	echo "Factorial = $fact";
+
+22.
+	function armstrongCheck($number){
+		$sum = 0;
+		$x = $number; 
+		while($x != 0)
+		{
+			$rem = $x % 10;
+			$sum = $sum + $rem*$rem*$rem;
+			$x = $x / 10;
+		} 
+		if ($number == $sum)
+			return 1;
+		return 0;
+	}
+
+	$number = 153;
+	$flag = armstrongCheck($number);
+	if ($flag == 1)
+		echo "Yes";
+	else
+		echo "No"
+
+
+23.
+	function Fibonacci($n){
+		$num1 = 0;
+		$num2 = 1;
+		$counter = 0;
+		while ($counter < $n){
+			echo ' '.$num1;
+			$num3 = $num2 + $num1;
+			$num1 = $num2;
+			$num2 = $num3;
+			$counter = $counter + 1;
+		}
+	}
+
+	$n = 10;
+	Fibonacci($n);
+
+24.
+	print table of a number
+
+	define('a', 9);
+	for($i=1; $i<=10; $i++)
+	{
+	  echo $i*a;
+	  echo '<br>';
+	}
+
+25.
+	print a reverse number
+
+	$num = 79658;
+	$revnum = 0;
+	while ($num > 1)
+	{
+		$rem = $num % 10;
+		$revnum = ($revnum * 10) + $rem;
+		$num = ($num / 10);
+	}
+	echo "Reverse number of 79658 is: $revnum";
+
+26.
+	function convertNullToBlank($array){
+		foreach ($array as $key => $value) {
+			if (is_null($value)) {
+				$array[$key] = "";
+			}
+		}
+		return $array;
+	}
+
+	Above function takes an array as an argument and converts it all null values to blank.
+
+
+27.
+	A lambda function is an anonymous PHP function that can be stored in a variable and passed as an argument to other functions or methods. A closure is a lambda function that is aware of its surrounding context. For example –
+
+	$input = array(1, 2, 3, 4, 5);
+	$output = array_filter($input, function ($v) { return $v > 2; });
+
+28.
+	PHP callback are functions that may be called dynamically by PHP. They are used by native functions such as array_map, usort, preg_replace_callback, etc. A callback function is a function that you create yourself, then pass to another function as an argument. Once it has access to your callback function, the receiving function can then call it whenever it needs to.
+
+	function thisFuncTakesACallback($callbackFunc)
+	{
+		echo "I'm going to call $callbackFunc!";
+		$callbackFunc();
+	}
+	function thisFuncGetsCalled()
+	{
+		echo "I'm a callback function!";
+	}
+	 
+	thisFuncTakesACallback( 'thisFuncGetsCalled' );
+
+29.
+	$mysqli = mysqli_connect("localhost","username","password");
+	$mysqli = new mysqli("localhost","username","password");
+
+	// Associative or Numeric array
+	$result=mysqli_query($DBconnection,$query);
+	$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+	echo "Name is $row[0]";
+	echo "Email is $row['email']";
+
+	//Numeric array
+	$result=mysqli_query($DBconnection,$query);
+	$row=mysqli_fetch_array($result);
+	printf ("%s %s\n",$row[0],$row[1]);
+
+	// Associative array
+	$result=mysqli_query($DBconnection,$query);
+	$row=mysqli_fetch_array($result);
+	printf ("%s %s\n",$row["name"],$row["email"]);
+
+	// Object
+	$result=mysqli_query($DBconnection,$query);
+	$row=mysqli_fetch_array($result);
+	printf ("%s %s\n",$row-&gt;name,$row-&gt;email);
+
+30.
+	$file1 = fopen("myfile1.txt","r"); //Open for reading
+	$file2 = fopen("myfile2.txt","w"); //Open for writing
+	$file3 = fopen("myfile3.txt","r+"); //Open for reading and writing
+
+31.
+	interface Isbn { 
+		public function setISBN($isbn);
+	}
+	interface Type{
+		public function setType($type); 
+	}
+	class bookDetails implements Isbn, Type {
+		private $isbn; 
+		private $type; 
+		public function setISBN($isbn)
+		{ 
+			$this -> isbn = $isbn; 
+		}
+		public function setType($type)
+		{ 
+			$this -> type = $type; 
+		}
+	}
+
+32.
+	$DBconnection=mysqli_connect("localhost","username","password","dbname");
+	$productName = mysqli_real_escape_string($con, $_POST['proname']);
+	$ProductType = mysqli_real_escape_string($con, $_POST['protype']);
+
+33.
+	/*
+		A thesaurus contains words and synonyms for each word. Below is an example of a data structure that defines a thesaurus:
+		array("buy" => array("purchase"), "big" => array("great", "large"));
+
+		Implement the function getSynonyms, which accepts a word as a string and returns all synonyms for that word in JSON format, as in the example below.
+
+		For example, the call $thesaurus->getSynonyms("big") should return:
+		'{"word":"big", "synonyms":["great", "large"]}'
+
+		while a call with a word that doesnot have synonyms, like $thesaurus->getSynonyms("agelast") should return:
+		'{"word":"agelast","synonyms":[]}'
+	*/
+
+	$dictionary = array("buy" => array("purchase"), "big" => array("great", "large"));
+	function getSynonyms($word, $dictionary) {
+		$returnString = array("word" => $word);
+		$result = array_key_exists($word, $dictionary) ? $dictionary[$word] : '';
+		$returnString["synonyms"] = (isset($result) && !empty($result)) ? $result : [];
+		//    '{"word":"big", "synonyms":["great", "large"]}'    
+		//    '{"word":"agelast","synonyms":[]}'	
+		echo json_encode($returnString);
+	}
+	getSynonyms("buy", $dictionary);
+	// -----
+	class Thesaurus
+	{
+		private $thesaurus;
+
+		function __construct(array $thesaurus)
+		{
+			$this->thesaurus = $thesaurus;
+		}
+
+		public function getSynonyms(string $word) : string
+		{
+			return (array_key_exists($word, $this->thesaurus)) ? '{"word":'.json_encode($word).',"synonyms":'.json_encode($this->thesaurus[$word]).'}' : '{"word":'.json_encode($word).',"synonyms":[]}';
+		}
+	}
+
+	$thesaurus = new Thesaurus(
+		[
+			"buy" => array("purchase"),
+			"big" => array("great", "large")
+		]
+	);
+
+	echo $thesaurus->getSynonyms("big");
+	echo "\n";
+	echo $thesaurus->getSynonyms("agelast");
+
+34.
+	function unique_names(array $array1, array $array2) : array
+	{
+		return array_unique(array_merge($array1, $array2));
+	}
+
+	$names = unique_names(['Ava', 'Emma', 'Olivia'], ['Olivia', 'Sophia', 'Emma']);
+	echo join(', ', $names); // should print Emma, Olivia, Ava, Sophia
+
+
+	// array_unique(array_merge(['Ava', 'Emma', 'Olivia'], ['Olivia', 'Sophia', 'Emma']));
+	// array_intersect(['Ava', 'Emma', 'Olivia'], ['Olivia', 'Sophia', 'Emma']);
+
+	function unique_names(array $array1, array $array2) : array
+	{ 
+		$array3= array_intersect($array1,$array2);
+		return array_unique(array_merge($array3,$array1, $array2)); 
+	}
+			
+	$names = unique_names(['Ava', 'Emma', 'Olivia'], ['Olivia', 'Sophia', 'Emma']);
+	echo join(', ', $names); // should print Emma, Olivia, Ava, Sophia
+
+
+35.
+	/**
+	 * Singleton class
+	 *
+	 */
+	final class UserFactory {
+		/**
+		 * Call this method to get singleton
+		 *
+		 * @return UserFactory
+		 */
+		public static
+		function Instance() {
+			static $inst = null;
+			if ($inst === null) {
+				$inst = new UserFactory();
+			}
+			return $inst;
+		}
+
+		/**
+		 * Private ctor so nobody else can instantiate it
+		 *
+		 */
+		private
+		function __construct() {
+
+		}
+	}
+
+	usage:
+	$fact = UserFactory::Instance();
+	$fact2 = UserFactory::Instance();
+
+	$fact = new UserFactory() // throws an error
+
+36.
+	$a = new stdClass();
+	$a->foo = "bar";
+	$b = clone $a;
+	var_dump($a === $b);
+
+	output
+	bool(false)
+
+
+37.
+	$a = "Original";
+	$my_array = array("a" => "Cat","b" => "Dog", "c" => "Horse");
+	extract($my_array);
+	echo "\$a = $a; \$b = $b; \$c = $c";
+
+	output
+	$a = Cat; $b = Dog; $c = Horse
+
+
+38.
+	function adder(&$str2) {  
+		$str2 .= 'Call By Reference';  
+	}
+	$str = 'This is ';  
+	adder($str);  
+	echo $str;  
+
+	output
+	This is Call By Reference
+
+
+39.
+	check array is associative
+
+	function has_string_keys(array $array) {
+		return count(array_filter(array_keys($array), 'is_string')) > 0;
+	}
+
+40.
+	class Foo{}
+	$foo = new Foo();
+	echo ($foo instanceof stdClass)?'Y':'N'; // outputs 'N'
+
+41.
+	1 === 1: true
+	1 == 1: true
+	1 === "1": false // 1 is an integer, "1" is a string
+	1 == "1": true // "1" gets casted to an integer, which is 1
+	"foo" === "foo": true // both operands are strings and have the same value
+
+42.
+	function Test() {
+		static $x = 0;
+		echo $x;
+		$x++;
+	}	
+	Test();
+	Test();
+	Test();
+
+	output
+	0 1 2
+
+
+43.
+	echo str_word_count("Hello world!");
+
+	output
+	2
+
+44.
+	Anagram check
+
+	/*
+	Check to see if two strings are an anagram of each other.
+	An anagram is a word, phrase, or name formed by rearranging the letters 
+	of another, such as "cinema" formed from "iceman"
+	*/
+
+	$str1 = "desserts";
+	$str2 = "stressed";
+
+	printf("\n\t'%s' and '%s' %s anagrams!\n", $str1, $str2, anagramCheck($str1, $str2) ? "are" : "are not");
+
+	function anagramCheck($firstString, $secondString)
+	{
+		$isAnagram = true;
+
+		// Check the length, if different, no anagram
+		if (strlen($firstString) != strlen($secondString))
+		  $isAnagram = false;
+		// Otherwise each character in the 2nd string should be in the first string and vice versa
+		else if (!charsMatch($firstString, $secondString) || !charsMatch($secondString, $firstString))
+		  $isAnagram = false;
+
+		return $isAnagram;
+	}
+
+	function charsMatch($firstString, $secondString)
+	{
+		$allMatch = true;
+
+		// Is each character in the first string also in the second string?
+		$str1Array = str_split($firstString);
+
+		foreach ($str1Array as $char)
+		{
+		  if (stripos($secondString, $char) == false)
+		  {
+			$allMatch = false;
+			break;
+		  }
+		  
+		  return $allMatch;
+		}
+	}
+
+45.  
+	Check if string contains only digits
+	/*
+		Check to see if a string contains only digits.
+	*/
+
+	$stringsToTest = array("847283765910", "ascii943", "ascii", "342865w");
+
+	foreach ($stringsToTest as $str)
+	{
+		printf("\n\t'%s' %s", $str, containsOnlyDigits($str) ? "\tcontains only digits!" : "\tdoes NOT contain only digits!");
+	}
+
+	printf("\n");
+
+	function containsOnlyDigits($testString)
+	{
+		// Match any non-digit character (opposite is \d which matches any digit character 0-9)
+		return !preg_match("/\D/", $testString);
+	}
+    
+46.
+	/*
+		Count occurrences of a given character in a string.
+	*/
+
+	$testStr = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...";
+
+	// Method #1: Looping over the characters
+	printf("\n\tUsing looping method: %d\n", countOccurrences(strtolower($testStr), "i"));
+
+	// Method #2: Use the built in substr_count function
+	printf("\n\tUsing built in function: %d\n", substr_count(strtolower($testStr), "i"));
+
+	function countOccurrences($targetStr, $targetChar)
+	{
+		$occurrences = 0;
+		$targetStrArray = str_split($targetStr);
+		foreach ($targetStrArray as $char)
+		{ 
+			if ($char == $targetChar)
+				$occurrences++;
+		}
+		return $occurrences;
+	}
+  
+
+47.
+	/*
+		Count the vowels and consonants in a string. We'll use the Merriam-Webster
+		Dictionary definition of a consonant as "a letter representing a consonant,
+		usually used in English of any letter except a, e, i, o, and u".
+	*/
+
+	define("VOWELS", array('a','e','i','o','u'));
+	define("DIGITS", array('0','1','2','3','4','5','6','7','8','9'));
+	$srcString = "InterviEw Questions";
+
+	// Remove spaces and convert to lower case
+	$srcString = str_replace(" ", "", strtolower($srcString));
+
+	$vowelCount = countVowels($srcString);
+	$consonantCount = countConsonants($srcString);
+	printf("\n\t%d vowels and %d consonants!\n", $vowelCount, $consonantCount);
+
+	function countVowels($str)
+	{
+		$vowelCount = 0;
+		$strArray = str_split($str);
+		foreach ($strArray as $char)
+		{
+			if (in_array($char, VOWELS))
+				$vowelCount++;
+		}
+		return $vowelCount;
+	}
+
+	function countConsonants($str)
+	{
+		$consonantCount = 0;
+		$strArray = str_split($str);
+		foreach ($strArray as $char)
+		{
+			if (!in_array($char, VOWELS) && !in_array($char, DIGITS))
+				$consonantCount++;
+		}
+		return $consonantCount;
+	}
+
+48.
+	/*
+		Find the first non-repeated (unique) character in a given string. 
+		For example, "Aardvark" would return "d". "Morning" should return "M". 
+	*/
+
+	$testStrings = array("Aardvark", "TARAMASALATA");
+	foreach ($testStrings as $str)
+	{
+		printf("\n\tFirst unique character in %s is %s.\n", $str, findFirstUniqueChar(strtolower($str)));
+	}
+
+	function findFirstUniqueChar($testString)
+	{
+		$returnVal = '';
+		$charDictionary = [];
+		$testStringArray = str_split($testString);
+		// 1st pass: add the number of character occurances to an associative array (dictionary)
+		foreach ($testStringArray as $char)
+		{
+		  if (count($charDictionary) == 0 || !array_key_exists($char, $charDictionary))
+			$charDictionary[$char] = 1;
+		  else
+			$charDictionary[$char] += 1;
+		}
+
+		// 2nd pass: look for the first character with a count of 1 in the dictionary
+		foreach($testStringArray as $char)
+		{
+		  if ($charDictionary[$char] == 1)
+		  {
+			$returnVal = $char;
+			break;
+		  }
+		}
+		return $returnVal;
+	}
+
+49.
+	/*
+		Prints a fibonacci series for up to n items. For example, 20 items would reveal:
+		[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181]
+	*/
+
+	define("NUMBERS_IN_SEQUENCE", 30);
+
+	for ($i = 0; $i < NUMBERS_IN_SEQUENCE; $i++)
+	{
+		printf("%d", fibonacci($i));
+		if ($i < (NUMBERS_IN_SEQUENCE - 1))
+		  printf(", ");
+	}
+
+	function fibonacci($n)
+	{
+		if ($n == 0 || $n == 1)
+		  return $n;
+		else
+		  return fibonacci($n - 1) + fibonacci($n - 2);
+	}
+
+
+50.
+	/*
+		Determine if one number is evenly divisible by another.
+	*/
+
+	$testNum = 1234;
+	$operand = 2;
+
+	if (isDivisibleBy($testNum, $operand))
+		printf("\n\t%d is divisible (is a factor of) %d\n", $testNum, $operand);
+	else
+		printf("\t%d is NOT divisible (is NOT a factor of) %d\n", $testNum, $operand);
+
+	function isDivisibleBy($num, $oper)
+	{
+		return (($num % $oper) == 0);
+	}
+
+51.
+	/*
+		Print duplicate characters in a string.
+		If string is "Javascript", output would be "a"
+	*/
+
+	$srcString = "hippopotomonstrosesquippedaliophobia";
+	printf("\n\tDuplicate characters in '%s' are:\n", $srcString);
+	print_r(findDuplicateChars($srcString));
+	printf("\n\tDuplicate characters with their count in '%s' are:\n", $srcString);
+	print_r(findDuplicateCharsWithCount($srcString));
+
+	function findDuplicateCharsWithCount($srcStr)
+	{
+		$dupChars = [];
+		$charsRead = [];
+		$charsReadDictionary = [];
+		$srcStrArray = str_split($srcStr);
+
+		foreach ($srcStrArray as $char)
+		{
+		  // Look in the list of characters we've read and add it to our duplicate list if it's not already in there
+		  if (count($charsRead) > 0 && in_array($char, $charsRead))
+		  {
+			if (!in_array($char, $dupChars))
+			{
+			   $dupChars[] = $char;
+
+			   // Set it's count to 2 because this is the 2nd time we've read that character
+			   $charsReadDictionary[$char] = 2;
+			}
+			else
+			  $charsReadDictionary[$char] += 1;
+		  }
+		  else
+			$charsRead[] = $char;
+		}
+		return $charsReadDictionary;
+	}
+
+	function findDuplicateChars($srcStr)
+	{
+		$dupCharsList = [];
+		$charsRead = [];
+		$srcStrArray = str_split($srcStr);
+
+		foreach ($srcStrArray as $char)
+		{
+		  // Look in the characters list we've read and add it to our duplicate list if it's not already there
+		  if (in_array($char, $charsRead) && !in_array($char, $dupCharsList))
+			$dupCharsList[] = $char;
+		  else
+			$charsRead[] = $char;
+		}
+		return $dupCharsList;
+	}
+
+
+52.
+	/*
+		Reverse the words in a string.
+		Given a string (a sentence) such as "THIS IS AN INTERVIEW", 
+		reverse each word in the string, such as "SIHT SI NA WEIVRETNI"
+	*/
+
+	$src = "SIHT SI NA WEIVRETNI";
+	$reversedWords = [];
+
+	// Split the string on spaces and create an array of words
+	$wordsArray = explode(" ", $src);
+
+	// Iterate over the words and reverse each one
+	foreach ($wordsArray as $word) 
+	{
+		$reversedWords[] = strrev($word);
+	}
+	$output = implode(" ", $reversedWords);
+	echo $output;
+
+53.
+	// count the vowels
+	// count the number of each of the vowels in this string
+	$string = 'the quick brown fox jumped over the lazy dogs';
+	$vowels = ['a', 'e', 'i', 'o', 'u'];
+	$counts = [];
+
+	// one solution
+	$letters = str_split($string);
+	foreach($vowels as $vowel) {
+		foreach($letters as $letter) {
+		  if($letter == $vowel) {
+			$counts[$vowel]++;
+		  }
+		}
+	}
+	var_dump($counts);
+
+54.
+	// write a function that will return an array of all factors of a given integer
+  
+	function findFactors($int) {
+		// your code here
+	}
+
+	var_dump(findFactors(64));
+	var_dump(findFactors(15));
+	var_dump(findFactors(0));
+
+	// one possible solution
+	function findFactors($int) {
+		$results = [];
+		$half = ceil($int/2);
+
+		for($i = 1; $i <= $half; $i++) {
+		  if($int % $i == 0) {
+			$otherHalf = $int/$i;
+			if(!isset($results[$otherHalf])) {  // avoid duplicate pairs
+			  $results[$i] = $int/$i;
+			}
+		  }
+		}
+		return $results;
+	}
+
+	// another
+	function findFactors($int) {
+		$results = [];
+
+		$max = ceil(sqrt($int));
+
+		for($i = 1; $i <= $max; $i++) {
+		  if($int % $i == 0) {
+			$results[$i] = $int/$i;        
+		  }
+		}
+		return $results;
+	}
+
+
+55.
+	// find the bug  
+	$amount = '3.00';
+	$fee = '0.00';
+	$total = number_format($amount + $fee, 2);
+
+	if($fee = 0)
+	  echo "there are no additional fees. your total is {$total}";
+	else
+	  echo "you will be charged an additional fee of {$fee}. total: {$total}";
+
+56.
+	// write a simple function to determine if a string is a palindrome
+
+	console.log(isPalindrome("level"));                   // should return true
+	console.log(isPalindrome("levels"));                  // should return false
+	console.log(isPalindrome("A car, a man, a maraca"));  // should return true
+
+	// bonus: why is it valid to declare this function *after* calls to it in source code?
+	function isPalindrome(str) {
+	  // your code here
+	}
+
+
+	// one solution
+	function isPalindrome(str) {
+	  str = str.replace(/\W/g, '').toLowerCase();
+	  return (str == str.split('').reverse().join(''));
+	}
+
+
+57.
+	$objects = [];
+
+	for($i = 97; $i < 105; $i++) {
+		$cls = new stdClass;
+		$cls->key = -$i;
+		$cls->value = str_repeat(chr($i), 8);
+		$objects[] = $cls;
+	}
+	shuffle($objects);
+	var_dump($objects);
+	// now re-sort the array by the "value" property
+	// your solution:
+
+	var_dump($objects);
+
+	// ideal solution:
+	usort($objects, function($a, $b) {
+		return $a->value <=> $b->value;
+	});
+
+58.
+	// find the bug	  
+	$amount = '0.00';
+
+	if(!$amount)
+	  echo "this item is free! enjoy.";
+	else
+	  echo "you owe {$amount}.";
+
+59.
+	/*
+		Let's say we have this array:
+		[2,4,1,6,5,40,-1]
+		Find two integers that multiply to 20
+	*/
+
+	class Problem1
+	{
+		private $datas = [];
+		private $goal = null;
+
+		public function __construct($datas, $goal) {
+			$this->datas = $datas;
+			$this->goal = $goal;
+		}
+
+		public function resolve() {
+			$datas = $this->datas;
+			$results = [];
+			for($i = 0; $i < count($datas) -1 ; $i++) {
+				for($j = $i+1; $j < count($datas); $j++) {
+					if($datas[$i]*$datas[$j]==$this->goal) {
+						$results[] = [$i => $datas[$i], $j => $datas[$j]];
+					}
+				}
+			}
+			return $results;
+		}
+	}
+
+	$n = new Problem1([2,4,1,6,5,40,-1,10,12,7,3,20,-20,4], 20);
+	print "<pre>";
+	print_r($n->resolve());
+
+60.
+	/*
+	Let's say we have this array:
+	[2,4,1,6,5,40,-1]
+	Find THREE integers that multiply to 20
+	*/
+
+	class Problem1
+	{
+		private $datas = [];
+		private $goal = null;
+
+		public function __construct($datas, $goal) {
+			$this->datas = $datas;
+			$this->goal = $goal;
+		}
+
+		public function resolve() {
+			$datas = $this->datas;
+			$results = [];
+			for($i = 0; $i < count($datas) -2 ; $i++) {
+				for($j = $i+1; $j < count($datas)-1; $j++) {
+					for($k = $j+1; $k < count($datas); $k++) {
+						if($datas[$i]*$datas[$j]*$datas[$k]==$this->goal) {
+							$results[] = [$i => $datas[$i], $j => $datas[$j], $k => $datas[$k]];
+						}
+					}
+				}
+			}
+			return $results;
+		}
+	}
+	$input = [];
+	$limit = 40;
+	for($i=0; $i<$limit; $i++)
+		$input[] = mt_rand(-20, +20);
+
+
+	$n = new Problem1($input, 20);
+	print "<pre>";
+	print_r($n->resolve());
+
+
+61.
+	A simple PHP implementation of the clock angle problem (angle between the 2 hands)
+	
+	A =  abs((0.5 * (((H%12) * 60) + M)) - 6 * M);
+	return (A > 180) ? (180 - A%180) : A
+
+	/* PSEUDO CODE:
+	To get the Angle on the clock:
+	1 - Create a function called AngleOfClock
+	2 - Divid the hours by 12
+	3 - Create variables for minutes and hours
+	4 - Allocate math formulas to define hours and the minutes parts
+	5 - Apply a built in function 'abs'  to calculate the total angle corresponding to the chosen hour
+	6 - Create a condition to check and echo only the angle between the clock hands
+	7 - Call the function AngleOfClock
+		T-DIAGRAM:
+	---------------
+	We need to get the AngleOfClock of (10, 30)
+	Var	                                      |values
+	+-----------------------------------------+-----------------------
+	$hours                                    |10 
+	$minutes                                  |30
+	the angel is less than 180                |135 degrees
+
+	*/
+
+	function AngleOfClock($hours, $minutes) { 
+	  $hours = $hours % 12;
+  
+      $hourMinPart = 0.5 * $minutes; 
+      $hourHourPart = 30 * $hours; 
+      $minAngle = 6 * $minutes; 
+      $totalAngle = abs($hourMinPart + $hourHourPart - $minAngle); 
+      
+        if ($totalAngle<=180){
+        echo $totalAngle .' ' .'degrees'; 
+        }
+        
+        else{
+        echo (360 - $totalAngle) .' ' .'degrees'; 
+        } 
+  
+	}
+
+	AngleOfClock(12, 15);
+
+
+
+
+
+62. 
+	Mirror
+
+	declare(strict_types=1);
+
+	function mirror(array $numbers): array {
+		$max = max(array_keys($numbers));
+
+		for($i=0; $i<=(floor(count($numbers)/2))-1; $i++) {
+			$tmp = $numbers[$max-$i];
+			$numbers[$max-$i] = $numbers[$i];
+			$numbers[$i] = $tmp;
+		}
+
+		return $numbers;
+	}
+
+
+63.
+	/*
+	 * Write a method to replace all spaces in a string with '%20'
+	 *
+	 */
+
+	function URLify($str)
+	{
+	  $str=trim($str);
+	  $str=str_replace(" ", "%20", $str);
+	  return($str);
+	}
+
+
+	$example="My name is Eric Day  ";
+
+	echo "Input: $example<br>";
+	echo "Output: ".URLify($example);
+
+
+64.
+	/*
+	 * Implement an algorithm to delete a node in the middle of a singly
+	 * linked list, given access only to that node.
+	 *
+	 */
+
+	class Node {
+	  public $data;
+	  public $next;
+
+	  public function __construct($item) {
+		$this->data = $item;
+		$this->next = null;
+	  }
+	}
+
+	class LinkList {
+	  public $head = null;
+
+	  private static $count = 0;
+
+	  /**
+		* @return int
+		*/
+	   public function getCount() {
+		   return self::$count;
+	   }
+
+	   /**
+		* @param mixed $item
+		*/
+	   public function insertItem($item) {
+		   if ($this->head == null) {
+			   $this->head = new Node($item);
+		   } else {
+			   /** @var Node $current */
+			   $current = $this->head;
+			   while ($current->next != null)
+			   {
+				   $current = $current->next;
+			   }
+
+			   $current->next = new Node($item);
+		   }
+
+		   self::$count++;
+	   }
+
+	   /**
+		* Print the link list as string like 1->3-> ...
+		*/
+
+	   public function printList() {
+		   $current = $this->head;
+		   while($current != null) {
+			   echo $current->data." -> ";
+			   $current = $current->next;
+		   }
+
+		   echo "<br>";
+	   }
+
+	   /**
+		* return kth to last from list
+		*/
+	   public function deleteMiddleNode($node) {
+		 if ($node->next != null) {
+		   $node->data = $node->next->data;
+		   $node->next = $node->next->next;
+		 }
+	   }
+	}
+
+	// Create a sample list to test algorithm
+	$ll = new LinkList();
+
+
+	$ll->insertItem(30);
+	$ll->insertItem(20);
+	$ll->insertItem(20);
+	$ll->insertItem(10);
+	$erase=$ll->head->next->next->next;
+	$ll->insertItem(10);
+	$ll->insertItem(50);
+	$ll->insertItem(30);
+	$ll->insertItem(40);
+
+
+	$ll->printList();
+	echo 'Total elements ' . $ll->getCount()."<br>";
+	$ll->deleteMiddleNode($erase);
+	$ll->printList();
+	echo 'Total elements ' . $ll->getCount()."<br>";
+
+
+65.
+	/*
+	 * Implement an algorithm to determine if a string has
+	 * all unique characters. What if you cannot use additional
+	 * data structures?
+	 *
+	 */
+
+	function validateIsUnique($str)
+	{
+	  $unique=true;
+	  $uniqChars=[];
+	  for ($i=0; $i<strlen($str)-1; $i++)
+	  {
+		if (isset($uniqChars[$str[$i]])) {
+		  $unique=false;
+		  break;
+		}
+		else {
+		  $uniqChars[$str[$i]]=1;
+		}
+	  }
+	  return($unique);
+	}
+
+	$example="Guadalajara";
+	if (validateIsUnique($example))
+	  echo "Word: [$example] All chars are unique !!!";
+	else {
+	  echo "Nope, word $example does not have all chars are unique !!!";
+	}
+
+
+
+66.
+	Even number count from 2 to 100
+
+	$even = 0;
+	$odd = 0;
+	$value = 20;
+
+	for($value; $value>0; $value --)
+	{
+		if($value%2 ==0)
+		{
+			$even++;
+			echo "value: $value" . "is an even number" . "<br />";
+		}
+
+		else{
+			$odd++;
+
+			echo "value: $odd" . "is an odd number" . "<br />";
+		}
+	}
+
